@@ -70,7 +70,7 @@ export default function SubTable({ bannerData }) {
           </thead>
           {/* Table Body */}
           <tbody className="text-white/70">
-            {bannerData.map((banner, index) => (
+            {bannerData?.map((banner, index) => (
               <tr className="border-b" key={index}>
                 <td className="whitespace-nowrap px-6 py-4 font-medium">
                   {index + 1}

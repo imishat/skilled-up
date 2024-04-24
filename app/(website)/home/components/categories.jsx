@@ -1,13 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import "swiper/css";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { GoChevronLeft, GoChevronRight } from "react-icons/go"; // Import your icon components
 import { getAllCategories } from "@/app/lib/jobCategories";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go"; // Import your icon components
 import SubHeader from "../../components/Subheader/Subheader";
 
 const Categories = () => {
@@ -66,7 +66,7 @@ const Categories = () => {
               categoriesData?.map(category => (
                 <SwiperSlide key={category?.id}>
                   <Link
-                    href={`/category/${category?.id}`}
+                    href={`/job-search?category=${category?.name}`}
                     className="flex h-52 items-center"
                   >
                     <div className="w-full md:w-auto relative">
@@ -79,12 +79,11 @@ const Categories = () => {
                           alt={category?.name} // Assuming your category object has a 'name' property
                         />
                       </div>
-                      <div className="absolute top-0 w-full h-full flex flex-col justify-end px-2 py-1 bg-gradient-to-t from-transparent to-black rounded-b-lg">
-                        <p className="text-white text-center text-sm md:text-lg p-1">
-                          {category?.name}
-                          {/* Assuming your category object has a 'name' property */}
-                        </p>
-                      </div>
+
+                      <p className="text-white font-bold absolute bottom-5 mx-auto w-full text-center text-sm md:text-lg p-1">
+                        {category?.name}
+                        {/* Assuming your category object has a 'name' property */}
+                      </p>
                     </div>
                   </Link>
                 </SwiperSlide>

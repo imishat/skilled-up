@@ -1,7 +1,5 @@
 import { FaAngleRight } from "react-icons/fa6";
-
 import { jobSeekerBySlug } from "@/app/lib/jobSeeker";
-
 import UserProfileCard from "./userProfileCard";
 
 const Page = async ({ params }) => {
@@ -9,7 +7,7 @@ const Page = async ({ params }) => {
 
   const result = await jobSeekerBySlug(slug);
   const { data } = result;
-  console.log(data);
+
   return (
     <div>
       <div className="text-white h-80 mt-20 flex flex-col items-center justify-center bg-secondary">

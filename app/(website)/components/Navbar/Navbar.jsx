@@ -46,53 +46,53 @@ const Navbar = () => {
     <>
       <Toast />
       <nav className="w-full fixed top-0 right-0 z-20 min-h-20 flex justify-between bg-secondary items-center border-b border-slate-800 lg:px-10 md:px-4">
-        <div className="md:w-1/2 flex items-center">
-          <Image
-            height="100"
-            width="100"
-            src={logo}
-            alt="logo"
-            className="h-20 w-20"
+        {/* <div className="flex items-center"> */}
+        <Image
+          height="100"
+          width="100"
+          src={logo}
+          alt="logo"
+          className="h-20 w-20"
+        />
+        <ul className="md:flex items-center text-[#7e7e81] gap-5 text-lg lg:ml-32 md:ml-10 hidden">
+          <li className="hover:text-btnColor cursor-pointer">
+            <Link
+              className={`link ${pathname === "/home" ? "text-btnColor" : ""}`}
+              href="/home"
+            >
+              Home
+            </Link>
+          </li>
+          <li className="hover:text-btnColor cursor-pointer">
+            <Link
+              className={`link ${pathname === "/job-post" ? "text-btnColor" : ""}`}
+              href="/job-post"
+            >
+              Job Post
+            </Link>
+          </li>
+          <li className="hover:text-btnColor cursor-pointer">
+            <Link
+              className={`link ${pathname === "/job-search" ? "text-btnColor" : ""}`}
+              href="/job-search"
+            >
+              Candidate Profile
+            </Link>
+          </li>
+        </ul>
+        {isOpen ? (
+          <RxCross2
+            onClick={toggleSidebar}
+            className="text-white text-3xl block md:hidden"
           />
-          <ul className="md:flex items-center text-[#7e7e81] gap-5 text-lg lg:ml-32 md:ml-10 hidden">
-            <li className="hover:text-white cursor-pointer">
-              <Link
-                className={`link ${pathname === "/home" ? "text-[#ffffff]" : ""}`}
-                href="/home"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="hover:text-white cursor-pointer">
-              <Link
-                className={`link ${pathname === "/job-post" ? "text-[#ffffff]" : ""}`}
-                href="/job-post"
-              >
-                Job Post
-              </Link>
-            </li>
-            <li className="hover:text-white cursor-pointer">
-              <Link
-                className={`link ${pathname === "/job-search" ? "text-[#ffffff]" : ""}`}
-                href="/job-search"
-              >
-                Candidate Profile
-              </Link>
-            </li>
-          </ul>
-          {isOpen ? (
-            <RxCross2
-              onClick={toggleSidebar}
-              className="text-white text-3xl block md:hidden"
-            />
-          ) : (
-            <GiHamburgerMenu
-              onClick={toggleSidebar}
-              className="text-white text-3xl block md:hidden"
-            />
-          )}
-        </div>
-        <div className="flex items-center gap-3 md:gap-0 justify-end md:w-1/2 w-2/3">
+        ) : (
+          <GiHamburgerMenu
+            onClick={toggleSidebar}
+            className="text-white text-3xl block md:hidden"
+          />
+        )}
+        {/* </div> */}
+        <div className="flex items-center gap-3 md:gap-0 justify-end">
           <div className="w-full flex items-center  justify-end lg:ml-24 md:ml-10 gap-5">
             {loading ? (
               <div className="w-full h-10 bg-slate-800 rounded animate-pulse"></div>

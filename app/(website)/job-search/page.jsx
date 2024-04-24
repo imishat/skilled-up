@@ -3,6 +3,7 @@
 import { Button } from "@/app/components/ui/button";
 import { getAllCategories } from "@/app/lib/jobCategories";
 import { getSearchedJobSeekers } from "@/app/lib/search";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import AdvanceFilter from "./components/AdvanceFilter";
 import SearchResult from "./components/SearchResult";
@@ -23,6 +24,11 @@ export default function JobSearch() {
     totalPages: 1,
     currentItems: 0,
   });
+
+  // Hooks
+  const searchParams = useSearchParams();
+
+  // Query Params
 
   /**
    * HANDLERS
@@ -79,19 +85,49 @@ export default function JobSearch() {
   /**
    * EFFECTS
    */
+  // useEffect(() => {
+  //   console.log("query params useEffect");
+  //   const category = searchParams.get("category");
+  //   if (category) {
+  //     setKeyword(category);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("1st useEffect");
+  //   setIsLoading(true);
+  //   getAllJobCategories();
+  //   handleGetAllJobSeekers();
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("2nd useEffect");
+  //   handleGetAllJobSeekers(selectedCategory, keyword, page, limit);
+  // }, [keyword, selectedCategory, page, limit]);
+
+  // useEffect(() => {
+  //   console.log("3rd useEffect");
+  //   handleGetAllJobSeekers(selectedCategory, keyword);
+  // }, [selectedCategory, keyword]);
+
   useEffect(() => {
+    console.log("1st useEffect");
     setIsLoading(true);
     getAllJobCategories();
-    handleGetAllJobSeekers();
   }, []);
 
   useEffect(() => {
+    console.log("2nd useEffect");
     handleGetAllJobSeekers(selectedCategory, keyword, page, limit);
-  }, [keyword, selectedCategory, page, limit]);
+  }, [selectedCategory, keyword, page, limit]);
 
   useEffect(() => {
-    handleGetAllJobSeekers(selectedCategory, keyword);
-  }, [selectedCategory, keyword]);
+    console.log("3rd useEffect");
+    const category = searchParams.get("category");
+    if (category) {
+      setKeyword(category);
+    }
+  }, [searchParams]);
 
   return (
     <div className="mt-20 text-white container">

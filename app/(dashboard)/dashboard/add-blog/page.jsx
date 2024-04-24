@@ -157,21 +157,21 @@ export default function AddCategory() {
                 </div>
               </div>
               {image && (
-                  <div className="relative mb-20 border rounded-md p-5 border-white flex items-center justify-center">
-                    <Image
-                      src={image}
-                      width={300}
-                      height={300}
-                      className="w-[300px] h-[300px] object-contain"
-                      alt="Droped Image"
-                    />
-                    <div className="absolute top-5 right-5 bg-white rounded-md">
-                      <Button variant="text" onClick={() => setImage("")}>
-                        <FaRegTrashAlt />
-                      </Button>
-                    </div>
+                <div className="relative mb-20 border rounded-md p-5 border-white flex items-center justify-center">
+                  <Image
+                    src={image}
+                    width={300}
+                    height={300}
+                    className="w-[300px] h-[300px] object-contain"
+                    alt="Droped Image"
+                  />
+                  <div className="absolute top-5 right-5 bg-white rounded-md">
+                    <Button variant="text" onClick={() => setImage("")}>
+                      <FaRegTrashAlt />
+                    </Button>
                   </div>
-                )}
+                </div>
+              )}
               {!image && (
                 <div>
                   <FormElements.Label withAsterisk>Icon</FormElements.Label>
