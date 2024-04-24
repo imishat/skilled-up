@@ -1,16 +1,16 @@
 "use client";
-import { Avatar } from "@/app/components/ui/avatar";
-import { getApplicant } from "@/app/lib/applicant";
-import plumber from "@/public/assets/plumber.jpg";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import "swiper/css";
-import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import plumber from "@/public/assets/plumber.jpg";
+import "swiper/css";
+import "swiper/css/navigation";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go";
+import { Avatar } from "@/app/components/ui/avatar";
 import SubHeader from "../../components/Subheader/Subheader";
+import { useEffect, useState } from "react";
+import { getApplicant } from "@/app/lib/applicant";
 
 export default function EditorChoice() {
   const [candidates, setCandidates] = useState([]);
@@ -83,9 +83,7 @@ export default function EditorChoice() {
                           <div>
                             <Avatar
                               name={
-                                item?.user?.firstName +
-                                " " +
-                                item?.user?.lastName
+                                item?.user?.firstName + " " + item?.user?.lastName
                               }
                               image={candidate?.user?.profilePicture}
                               size="medium"
