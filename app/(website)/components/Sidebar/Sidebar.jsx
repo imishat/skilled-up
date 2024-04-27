@@ -5,7 +5,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const pathname = usePathname();
   return (
     <div
-      className={`flex z-10 md:hidden absolute h-screen ${isOpen ? "sidebar-open" : "sidebar-closed w-0"}`}
+      className={`flex z-10 md:hidden fixed top-20 left-0 h-screen ${isOpen ? "sidebar-open" : "sidebar-closed w-0"}`}
     >
       <div
         className={`w-64 bg-black/90 p-4 transition-all duration-300 ${

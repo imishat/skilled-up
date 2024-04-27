@@ -100,7 +100,7 @@ export default async function JobDetails({ params }) {
             </div>
           </div>
         </div>
-        <div className="flex items-start mt-10 gap-10">
+        <div className="flex flex-wrap lg:flex-nowrap items-start mt-10 gap-10">
           <Overview singleJob={singleJob} />
           <Information singleJob={singleJob} />
         </div>

@@ -1,7 +1,5 @@
 import { FaAngleRight } from "react-icons/fa6";
-
 import { jobSeekerBySlug } from "@/app/lib/jobSeeker";
-
 import UserProfileCard from "./userProfileCard";
 
 const Page = async ({ params }) => {
@@ -22,7 +20,9 @@ const Page = async ({ params }) => {
         <div className="w-full lg:w-3/4">
           <div className="p-5 border border-white/30 rounded-2xl">
             <h1 className="text-2xl font-bold mb-5 text-white">Overview</h1>
-            <p className="leading-[2em] text-base text-white">{data?.intro}</p>
+            <p className="leading-[2em] text-base text-white">
+              {data?.intro ? data?.intro : "This profile has no intro"}
+            </p>
           </div>
           {data?.videoResume.map((video, index) => (
             <div className="mt-20" key={video?.id}>

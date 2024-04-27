@@ -24,6 +24,7 @@ const UserProfileCard = ({ data }) => {
     <div className="w-full lg:w-1/4">
       <div className="bg-secondary flex flex-col items-center justify-center py-10 px-5 rounded-2xl">
         <Avatar
+          name={data?.firstName + " " + data?.lastName}
           image={data?.profilePicture ? data?.profilePicture : null}
           size="large"
         />
@@ -33,18 +34,13 @@ const UserProfileCard = ({ data }) => {
         <p className="text-white mt-2 mb-4 text-sm">
           {user?.role === "admin" && data?.phoneNumber}
         </p>
-        <Button>
-          {user?.role === "admin" ? (
-            data?.status
-          ) : user?.role === "hirer" ? (
-            <WhatsApp
-              phoneNumber={process.env.WHATSAPP_NUMBER}
-              message={data}
-            />
-          ) : (
-            ""
-          )}
-        </Button>
+        {user?.role === "admin" ? (
+          <Button>{data?.status}</Button>
+        ) : user?.role === "hirer" ? (
+          <WhatsApp phoneNumber={process.env.WHATSAPP_NUMBER} message={data} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

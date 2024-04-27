@@ -145,9 +145,7 @@ export default function CreateJobSeeker() {
       // add job seeker
       const createJobSeekerRes = await createJobSeekerProfile(updatedPayload);
 
-      
       if (createJobSeekerRes?.success) {
-      
         setLoading(false);
         showToast("Job Seeker Created", "success");
         router.push("/dashboard/task-list");
@@ -164,7 +162,6 @@ export default function CreateJobSeeker() {
     }
   };
 
-  
   // upload video resume to the server
   const uploadVideoResume = async file => {
     const formData = new FormData();
@@ -193,225 +190,224 @@ export default function CreateJobSeeker() {
   }, []);
 
   return (
-
     <>
-    <Toast/>
-    <div className="text-white container py-10">
-      <div className="bg-[#1f2023] px-8 py-12 rounded-sm">
-        <h1 className="text-2xl text-slate-100">Create Job Seeker</h1>
+      <Toast />
+      <div className="text-white container py-10">
+        <div className="bg-[#1f2023] px-8 py-12 rounded-sm">
+          <h1 className="text-2xl text-slate-100">Create Job Seeker</h1>
 
-        <div className="pt-6">
-          <form className="space-y-5" onSubmit={handleAddJobSeeker}>
-            <div className="flex items-center gap-6">
+          <div className="pt-6">
+            <form className="space-y-5" onSubmit={handleAddJobSeeker}>
+              <div className="flex items-center gap-6">
+                <div className="w-full">
+                  <FormElements.Label>First Name</FormElements.Label>
+                  <FormElements.Input
+                    type="text"
+                    value={payload.firstName}
+                    onChange={e =>
+                      setPayload({ ...payload, firstName: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="w-full">
+                  <FormElements.Label>First Name</FormElements.Label>
+                  <FormElements.Input
+                    type="text"
+                    value={payload.lastName}
+                    onChange={e =>
+                      setPayload({ ...payload, lastName: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
               <div className="w-full">
-                <FormElements.Label>First Name</FormElements.Label>
+                <FormElements.Label>Phone number</FormElements.Label>
                 <FormElements.Input
                   type="text"
-                  value={payload.firstName}
+                  value={payload.phoneNumber}
                   onChange={e =>
-                    setPayload({ ...payload, firstName: e.target.value })
+                    setPayload({ ...payload, phoneNumber: e.target.value })
                   }
                 />
               </div>
+
               <div className="w-full">
-                <FormElements.Label>First Name</FormElements.Label>
+                <FormElements.Label>Intro</FormElements.Label>
                 <FormElements.Input
                   type="text"
-                  value={payload.lastName}
+                  value={payload.intro}
                   onChange={e =>
-                    setPayload({ ...payload, lastName: e.target.value })
+                    setPayload({ ...payload, intro: e.target.value })
                   }
                 />
               </div>
-            </div>
-            <div className="w-full">
-              <FormElements.Label>Phone number</FormElements.Label>
-              <FormElements.Input
-                type="text"
-                value={payload.phoneNumber}
-                onChange={e =>
-                  setPayload({ ...payload, phoneNumber: e.target.value })
-                }
-              />
-            </div>
 
-            <div className="w-full">
-              <FormElements.Label>Intro</FormElements.Label>
-              <FormElements.Input
-                type="text"
-                value={payload.intro}
-                onChange={e =>
-                  setPayload({ ...payload, intro: e.target.value })
-                }
-              />
-            </div>
+              <div className="flex items-center gap-6">
+                <div className="w-full">
+                  <FormElements.Label>Degree Name</FormElements.Label>
+                  <FormElements.Input
+                    type="text"
+                    value={payload.education.title}
+                    onChange={e =>
+                      setPayload({
+                        ...payload,
+                        education: {
+                          ...payload.education,
+                          title: e.target.value,
+                        },
+                      })
+                    }
+                  />
+                </div>
+                <div className="w-full">
+                  <FormElements.Label>Passing year</FormElements.Label>
+                  <FormElements.Input
+                    type="text"
+                    value={payload.education.year}
+                    onChange={e =>
+                      setPayload({
+                        ...payload,
+                        education: {
+                          ...payload.education,
+                          year: e.target.value,
+                        },
+                      })
+                    }
+                  />
+                </div>
+              </div>
 
-            <div className="flex items-center gap-6">
-              <div className="w-full">
-                <FormElements.Label>Degree Name</FormElements.Label>
-                <FormElements.Input
-                  type="text"
-                  value={payload.education.title}
-                  onChange={e =>
-                    setPayload({
-                      ...payload,
-                      education: {
-                        ...payload.education,
-                        title: e.target.value,
-                      },
-                    })
-                  }
+              <div className="">
+                <div className="flex items-center justify-between">
+                  <FormElements.Label>Your skills</FormElements.Label>
+                  <Button variant="text" onClick={addSkill}>
+                    Add Skill
+                  </Button>
+                </div>
+
+                {payload?.skills?.length > 0 &&
+                  payload?.skills.map((skill, index) => (
+                    <div
+                      key={index}
+                      className="space-y-3 bg-secondary py-6 px-6 rounded"
+                    >
+                      <div className="space-y-2">
+                        <FormElements.Label>Select Skills</FormElements.Label>
+                        <FormElements.SelectV2
+                          options={categoryOptions}
+                          value={skill?.category?.value}
+                          onChange={e => {
+                            const newSkills = [...payload.skills];
+                            newSkills[index].category = {
+                              value: e.target.value,
+                              label:
+                                e.target.options[e.target.selectedIndex].text,
+                            };
+                            setPayload({
+                              ...payload,
+                              skills: newSkills,
+                            });
+                          }}
+                          defaultValue={payload.skills[index]?.category}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <FormElements.Label>
+                          How much experience you have?
+                        </FormElements.Label>
+                        <FormElements.Input
+                          value={skill?.yearsOfExperience}
+                          onChange={e => {
+                            const newSkills = [...payload.skills];
+                            newSkills[index].yearsOfExperience = parseInt(
+                              e.target.value
+                            );
+                            setPayload({
+                              ...payload,
+                              skills: newSkills,
+                            });
+                          }}
+                          type="number"
+                        />
+                      </div>
+                      <div>
+                        <Button
+                          onClick={() => {
+                            removeSkill(index);
+                          }}
+                          type="button"
+                          variant="none"
+                          customclassName="text-red-500"
+                          disabled={skills.length === 1 ? true : false}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+
+              <div>
+                <FormElements.Label>Resume</FormElements.Label>
+                <Dropzone
+                  onUpload={handleResumeUpload}
+                  title="Upload your resume file."
                 />
               </div>
-              <div className="w-full">
-                <FormElements.Label>Passing year</FormElements.Label>
-                <FormElements.Input
-                  type="text"
-                  value={payload.education.year}
-                  onChange={e =>
-                    setPayload({
-                      ...payload,
-                      education: {
-                        ...payload.education,
-                        year: e.target.value,
-                      },
-                    })
-                  }
-                />
-              </div>
-            </div>
 
-            <div className="">
-              <div className="flex items-center justify-between">
-                <FormElements.Label>Your skills</FormElements.Label>
-                <Button variant="text" onClick={addSkill}>
-                  Add Skill
-                </Button>
-              </div>
-
-              {payload?.skills?.length > 0 &&
-                payload?.skills.map((skill, index) => (
-                  <div
-                    key={index}
-                    className="space-y-3 bg-secondary py-6 px-6 rounded"
-                  >
-                    <div className="space-y-2">
-                      <FormElements.Label>Select Skills</FormElements.Label>
-                      <FormElements.SelectV2
-                        options={categoryOptions}
-                        value={skill?.category?.value}
-                        onChange={e => {
-                          const newSkills = [...payload.skills];
-                          newSkills[index].category = {
-                            value: e.target.value,
-                            label:
-                              e.target.options[e.target.selectedIndex].text,
-                          };
-                          setPayload({
-                            ...payload,
-                            skills: newSkills,
-                          });
-                        }}
-                        defaultValue={payload.skills[index]?.category}
+              <div className="grid grid-cols-3 gap-4">
+                {videoResumeFiles.map((video, index) => (
+                  <div key={index} className="w-full relative">
+                    <video
+                      controls
+                      className="w-full h-56 border border-white/70 rounded-xl font-semibold text-xl"
+                    >
+                      <source
+                        src={
+                          video?.file ? URL.createObjectURL(video?.file) : null
+                        }
+                        type="video/mp4"
                       />
-                    </div>
-                    <div className="space-y-2">
-                      <FormElements.Label>
-                        How much experience you have?
-                      </FormElements.Label>
-                      <FormElements.Input
-                        value={skill?.yearsOfExperience}
-                        onChange={e => {
-                          const newSkills = [...payload.skills];
-                          newSkills[index].yearsOfExperience = parseInt(
-                            e.target.value
-                          );
-                          setPayload({
-                            ...payload,
-                            skills: newSkills,
-                          });
-                        }}
-                        type="number"
-                      />
-                    </div>
-                    <div>
-                      <Button
-                        onClick={() => {
-                          removeSkill(index);
-                        }}
-                        type="button"
-                        variant="none"
-                        customclassName="text-red-500"
-                        disabled={skills.length === 1 ? true : false}
-                      >
-                        Remove
-                      </Button>
-                    </div>
+                    </video>
+                    <button
+                      className="bg-white text-gray-800 w-8 h-8 flex items-center justify-center rounded-full absolute top-2 right-2"
+                      onClick={() => {
+                        setVideoResumeFiles(
+                          videoResumeFiles.filter((_, i) => i !== index)
+                        );
+                      }}
+                    >
+                      <RxCross1 />
+                    </button>
                   </div>
                 ))}
-            </div>
+              </div>
 
-            <div>
-              <FormElements.Label>Resume</FormElements.Label>
-              <Dropzone
-                onUpload={handleResumeUpload}
-                title="Upload your resume file."
-              />
-            </div>
+              <div>
+                <FormElements.Label>Video Resume</FormElements.Label>
+                <Dropzone
+                  onUpload={handleVideoResumeUpload}
+                  title="Upload your video resume file."
+                  maxSize={500}
+                  acceptedFileTypes={["mp4", "avi"]}
+                  subTitle="Only mp4 and avi files are allowed"
+                />
+              </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              {videoResumeFiles.map((video, index) => (
-                <div key={index} className="w-full relative">
-                  <video
-                    controls
-                    className="w-full h-56 border border-white/70 rounded-xl font-semibold text-xl"
-                  >
-                    <source
-                      src={
-                        video?.file ? URL.createObjectURL(video?.file) : null
-                      }
-                      type="video/mp4"
-                    />
-                  </video>
-                  <button
-                    className="bg-white text-gray-800 w-8 h-8 flex items-center justify-center rounded-full absolute top-2 right-2"
-                    onClick={() => {
-                      setVideoResumeFiles(
-                        videoResumeFiles.filter((_, i) => i !== index)
-                      );
-                    }}
-                  >
-                    <RxCross1 />
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <FormElements.Label>Video Resume</FormElements.Label>
-              <Dropzone
-                onUpload={handleVideoResumeUpload}
-                title="Upload your video resume file."
-                maxSize={500}
-                acceptedFileTypes={["mp4", "avi"]}
-                subTitle="Only mp4 and avi files are allowed"
-              />
-            </div>
-
-            <div className="flex justify-end">
-              <Button
-                variant="btnColor"
-                type="submit"
-                disabled={loading}
-                loading={loading}
-              >
-                Aadd Job Seeker
-              </Button>
-            </div>
-          </form>
+              <div className="flex justify-end">
+                <Button
+                  variant="btnColor"
+                  type="submit"
+                  disabled={loading}
+                  loading={loading}
+                >
+                  Aadd Job Seeker
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }
