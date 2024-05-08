@@ -80,41 +80,7 @@ export default function VideoResume({ videos }) {
           }
         }
 
-        // upload the thumbnail
-
-        // const thumbnailRes = await fetch(
-        //   `http://localhost:8000/api/v1/applicant/uplod-resume-thumbnail`,
-        //   {
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //       thumbnail: thumbnail,
-        //     }),
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //       Authorization: `Bearer ${cookies.get("token")}`,
-        //     },
-        //   }
-        // );
-        // const thumbnailResponse = await thumbnailRes.json();
-
-        // if (thumbnailResponse?.data?.success) {
-        //   const url = thumbnailRes?.data?.data;
-        //   formData.append("thumbnail", url);
-        //   const res = await fileUpload(
-        //     endpoints.jobSeeker.uploadVideoResume,
-        //     formData,
-        //     METHODS.PATCH
-        //   );
-        //   if (res?.data?.success) {
-        //     revalidateJobSeekerProfile();
-        //     showToast("Video uploaded successfully", "success");
-        //     setUploadLoading(false);
-        //   }
-        //   if (!res?.data?.success) {
-        //     showToast("Error while uploading video", "error");
-        //     setUploadLoading(false);
-        //   }
-        // }
+       
       } catch (error) {
         console.error("Error while uploading video: ", error);
         showToast("Error while uploading video", "error");

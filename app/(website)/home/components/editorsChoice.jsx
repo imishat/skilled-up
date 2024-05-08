@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import plumber from "@/public/assets/plumber.jpg";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
@@ -14,6 +14,7 @@ import { getApplicant } from "@/app/lib/applicant";
 
 export default function EditorChoice() {
   const [candidates, setCandidates] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +75,9 @@ export default function EditorChoice() {
                       <div className="w-64 md:w-auto">
                         <Image
                           className="w-full object-cover h-full rounded-lg"
-                          src={plumber}
+                          src={
+                            item?.applicant?. thumbnail 
+                            }
                           alt=""
                           width={350}
                           height={350}
