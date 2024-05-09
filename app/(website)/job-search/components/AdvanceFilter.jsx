@@ -38,24 +38,7 @@ export default function AdvanceFilter({
                 </div>
               </label>
             ))}
-            {/* {industrialType.map(job => (
-              <label
-                key={job._id}
-                htmlFor={job.label}
-                className="flex items-center gap-3"
-              >
-                <input
-                  type="checkbox"
-                  id={job.label}
-                  name={job.label}
-                  className="w-6 h-6"
-                />
-                <div className="flex items-center justify-between w-full">
-                  <span>{job.label}</span>
-                  <span>{job.availableJob}</span>
-                </div>
-              </label>
-            ))} */}
+          
           </div>
         </div>
       </div>

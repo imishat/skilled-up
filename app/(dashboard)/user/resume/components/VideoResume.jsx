@@ -9,7 +9,7 @@ import useToast from "@/app/components/ui/toast";
 import { VideoPlayer } from "@/app/components/ui/video-player";
 import { METHODS } from "@/app/constants";
 import { fileUpload } from "@/app/lib/fileUpload";
-import {
+import {uplodeVideo,
   deleteVideoResume,
   revalidateJobSeekerProfile,
 } from "@/app/lib/jobSeeker";
@@ -30,10 +30,11 @@ export default function VideoResume({ videos }) {
   const [previewVideo, setPreviewVideo] = useState(null);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
+
   //toast state
   const { Toast, showToast } = useToast();
 
-  console.log(videos);
+  
 
   /**
    * HANDLERS
@@ -61,13 +62,20 @@ export default function VideoResume({ videos }) {
         );
 
         if (thumbnailRes?.data?.success) {
-          const thumbnailUrl = thumbnailRes?.data?.data;
-          formData.append("thumbnail", thumbnailUrl);
-          const res = await fileUpload(
-            endpoints.jobSeeker.uploadVideoResume,
-            formData,
-            METHODS.PATCH
-          );
+          const thumbnail  = thumbnailRes?.data?.data;
+          console.log(thumbnail ,"thumbnailUrl")
+          // thumbmailFormData.append("thumbnail", thumbnailUrl);
+          // const res = await fileUpload(
+          //   endpoints.jobSeeker.uploadVideoResume,
+          //   {formData,
+          //     thumbnail } ,
+          //   METHODS.PATCH
+          // );
+          const data={
+            video:videoFile,
+            thumbnail
+          }
+          const video=await uplodeVideo(data)
           if (res?.data?.success) {
             revalidateJobSeekerProfile();
             showToast("Video uploaded successfully", "success");

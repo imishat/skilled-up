@@ -16,6 +16,7 @@ export default function SearchResult({
   obcaecati? Suscipit, libero!`;
 
   const { totalResults, currentItems, totalPages, page } = metaData || {};
+  console.log(jobSeekers,"job")
 
   const renderJobSeekers = () => {
     if (jobSeekers.length === 0) {
@@ -26,7 +27,7 @@ export default function SearchResult({
       );
     }
 
-    return jobSeekers.map((jobSeeker, key) => {
+    return jobSeekers?.map((jobSeeker, key) => {
       return (
         <Link
           key={key}
@@ -34,13 +35,20 @@ export default function SearchResult({
           className="h-full text-white"
         >
           <div>
-            <Image
-              className="w-full object-cover h-full rounded-lg"
-              src={plumber}
-              alt=""
-              width={500}
-              height={500}
-            />
+          {jobSeeker?.videoResume.map((video, index) => (
+    index === 0 && (
+      <Image
+        className="w-full object-cover h-full rounded-lg"
+        src={video?.
+          thumbnail
+          } // Assuming video is actually an image URL
+        alt=""
+        width={350}
+        height={350}
+        key={index}
+      />
+    )
+  ))}
           </div>
           <div className="flex gap-3 items-center mt-3">
             <div>

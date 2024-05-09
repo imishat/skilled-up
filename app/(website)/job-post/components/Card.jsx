@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function Card({ jobPost }) {
   const { title, description, image, createdAt, slug } = jobPost;
+  console.log(jobPost)
 
   // time convert
   let dateString = createdAt;
@@ -41,7 +42,9 @@ export default function Card({ jobPost }) {
             </div>
             <div>
               <h5 className="text-white font-semibold leading-2">
-                Razibul Islam Raj
+               {jobPost?.createdBy?. 
+    firstName?jobPost?.createdBy?. 
+    firstName:"ADMIN"}
               </h5>
               <span className="text-white/70 text-sm">{formattedDate}</span>
             </div>
