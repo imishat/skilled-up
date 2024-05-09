@@ -26,6 +26,7 @@ export default function Info({ profile }) {
     year: "",
   });
   const [intro, setIntro] = useState("");
+  console.log(intro,"intro")
 
   const [loading, setLoading] = useState(false);
   //toast state
@@ -34,12 +35,28 @@ export default function Info({ profile }) {
    * EFFECTS
    */
 
+  
   useEffect(() => {
     const cleanedIntro = profile?.intro
-      ? profile.intro.replace(/<\/?[^>]+>/gi, "")
+      ? profile.intro
+          .replace(/<p[^>]*>/g, "") // Remove opening <p> tags
+          .replace(/<\/p>/g, "")     // Remove closing </p> tags
+          .replace(/<div[^>]*>/g, "") // Remove opening <div> tags
+          .replace(/<\/div>/g, "")   // Remove closing </div> tags
       : "";
     setIntro(cleanedIntro);
-  }, [profile, profile?.intro]);
+}, [profile, profile?.intro]);
+
+  useEffect(() => {
+    const cleanedIntro = intro
+      ? intro
+          .replace(/<p[^>]*>/g, "") // Remove opening <p> tags
+          .replace(/<\/p>/g, "")     // Remove closing </p> tags
+          .replace(/<div[^>]*>/g, "") // Remove opening <div> tags
+          .replace(/<\/div>/g, "")   // Remove closing </div> tags
+      : "";
+    setIntro(cleanedIntro);
+}, [intro]);
 
   useEffect(() => {
     if (profile) {
