@@ -60,3 +60,8 @@ export const changePassword = async data => {
   );
   return response;
 };
+
+export const register = async data => {
+  const response = await api.mutation(endpoints.auth.register, data, "POST");
+  return response;
+};

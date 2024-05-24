@@ -101,7 +101,7 @@ export default  function addJob() {
         
         if (result.success) {
           showToast("Job added successfully", "success");
-           router.push("/dashboard/jopPost");
+           router.push("/");
           setLoading(false);
           reset();
         }

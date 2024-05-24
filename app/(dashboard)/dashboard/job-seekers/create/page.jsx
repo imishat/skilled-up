@@ -20,6 +20,7 @@ export default function CreateJobSeeker() {
     lastName: "",
     phoneNumber: "",
     intro: "",
+    thumbnail:"",
     education: {
       title: "",
       year: 2000,
@@ -30,13 +31,16 @@ export default function CreateJobSeeker() {
         yearsOfExperience: null,
       },
     ],
-    videoResume: [],
+    videoresume: [],
+    
     resume: "",
   });
   const [resumeFile, setResumeFile] = useState(null);
+  const [thumbnail,setThumbnail]=useState(null)
   const [videoResumeFiles, setVideoResumeFiles] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
 
   const [categoryOptions, setCategoyOptions] = useState([
     { value: "", label: "" },
@@ -81,6 +85,9 @@ export default function CreateJobSeeker() {
     });
   };
 
+  const handleThumbnailUpload = file => {
+    setThumbnail(file);
+  };
   const handleResumeUpload = file => {
     setResumeFile(file);
   };
@@ -92,12 +99,34 @@ export default function CreateJobSeeker() {
   const handleAddJobSeeker = async e => {
     e.preventDefault();
     setLoading(true);
+ 
 
     try {
       let resumeLink = payload.resume;
-      let videoResumeLinks = payload.videoResume.map(video => video.file);
+      let videoResumeLinks = payload.videoresume.map(video => video.file);
+
+      let resumeThumbnail=payload.thumbnail;
+      
 
       // upload resume to the server if not already uploaded
+      if (thumbnail && !resumeThumbnail) {
+        const resumeThumbnailData = new FormData();
+        resumeThumbnailData .append("file", thumbnail);
+
+        const resumeResponse = await fileUpload(
+          endpoints.fileUpload.upload,
+          resumeThumbnailData ,
+          METHODS.POST
+        );
+
+        if (resumeResponse?.data?.data) {
+          resumeThumbnail = resumeResponse.data.data;
+        } else {
+          setError("Failed to upload Thumbnail");
+          setLoading(false); // Reset loading state
+          return;
+        }
+      }
       if (resumeFile && !resumeLink) {
         const resumeFormData = new FormData();
         resumeFormData.append("file", resumeFile);
@@ -120,7 +149,10 @@ export default function CreateJobSeeker() {
       // upload video resumes to the server
       if (videoResumeFiles.length > 0) {
         const videoUploadPromises = videoResumeFiles.map(async file => {
+
+
           const videoResponse = await uploadVideoResume(file);
+          
           if (videoResponse) {
             videoResumeLinks.push(videoResponse);
           }
@@ -132,7 +164,8 @@ export default function CreateJobSeeker() {
       const updatedPayload = {
         ...payload,
         resume: resumeLink,
-        videoResume: videoResumeLinks.map(file => ({ file })),
+      thumbnail: resumeThumbnail,
+      videoresume: videoResumeLinks.map(file => ({ file ,thumbnail:resumeThumbnail})),
       };
 
       const skills = updatedPayload.skills.map(skill => ({
@@ -142,8 +175,11 @@ export default function CreateJobSeeker() {
 
       updatedPayload.skills = skills;
 
+    
+
       // add job seeker
       const createJobSeekerRes = await createJobSeekerProfile(updatedPayload);
+
 
       if (createJobSeekerRes?.success) {
         setLoading(false);
@@ -176,7 +212,7 @@ export default function CreateJobSeeker() {
     if (response?.data?.success) {
       setPayload({
         ...payload,
-        videoResume: [...payload.videoResume, { file: response.data.data }],
+        videoResume: [...payload.videoresume, { file: response.data.data }],
       });
       return response.data.data;
     }
@@ -346,7 +382,13 @@ export default function CreateJobSeeker() {
                     </div>
                   ))}
               </div>
-
+              <div>
+                <FormElements.Label>Thumbnail</FormElements.Label>
+                <Dropzone
+                  onUpload={handleThumbnailUpload}
+                  title="Upload your video thumbnail"
+                />
+              </div>
               <div>
                 <FormElements.Label>Resume</FormElements.Label>
                 <Dropzone
@@ -356,7 +398,7 @@ export default function CreateJobSeeker() {
               </div>
 
               <div className="grid grid-cols-3 gap-4">
-                {videoResumeFiles.map((video, index) => (
+                {videoResumeFiles?.map((video, index) => (
                   <div key={index} className="w-full relative">
                     <video
                       controls

@@ -67,7 +67,7 @@ export const endpoints = {
   },
   jobPost: {
     uploadJob: makeApiUrl("job-post"),
-    getAllJob: makeApiUrl("job-post"),
+    getAllJob: makeApiUrl("job-post?populate=createdBy"),
 
     getJobById(id) {
       return makeApiUrl(`job-post/${id}`);

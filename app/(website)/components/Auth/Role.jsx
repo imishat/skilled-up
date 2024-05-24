@@ -36,7 +36,7 @@ export default function Role({
           >
             <legend className="sr-only">Choices</legend>
             <div className=" relative space-y-2 rounded-md">
-              {roles.map(choice => (
+              {roles?.map(choice => (
                 <label
                   key={choice.id}
                   htmlFor={choice.id}
@@ -65,10 +65,10 @@ export default function Role({
                       }}
                     />
                     <span
-                      id={`${choice.id}-label`}
+                      id={`${choice?.id}-label`}
                       className="ml-3 font-medium text-slate-200"
                     >
-                      {choice.label}
+                      {choice?.label}
                     </span>
                   </span>
                 </label>

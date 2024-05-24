@@ -30,6 +30,15 @@ export const uplaodResume = async file => {
   );
   return response;
 };
+export const uplodeVideo = async (video, thumbnail) => {
+  const response = await api.mutation(
+    endpoints.jobSeeker.uploadVideoResume,
+    video,
+    thumbnail,
+    METHODS.PATCH
+  );
+  return response;
+};
 
 export const deleteVideoResume = async id => {
   const response = await api.mutation(

@@ -82,47 +82,20 @@ export default function JobSearch() {
     setIsLoading(false);
   };
 
-  /**
-   * EFFECTS
-   */
-  // useEffect(() => {
-  //   console.log("query params useEffect");
-  //   const category = searchParams.get("category");
-  //   if (category) {
-  //     setKeyword(category);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("1st useEffect");
-  //   setIsLoading(true);
-  //   getAllJobCategories();
-  //   handleGetAllJobSeekers();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("2nd useEffect");
-  //   handleGetAllJobSeekers(selectedCategory, keyword, page, limit);
-  // }, [keyword, selectedCategory, page, limit]);
-
-  // useEffect(() => {
-  //   console.log("3rd useEffect");
-  //   handleGetAllJobSeekers(selectedCategory, keyword);
-  // }, [selectedCategory, keyword]);
-
+ 
   useEffect(() => {
-    console.log("1st useEffect");
+   
     setIsLoading(true);
     getAllJobCategories();
   }, []);
 
   useEffect(() => {
-    console.log("2nd useEffect");
+ 
     handleGetAllJobSeekers(selectedCategory, keyword, page, limit);
   }, [selectedCategory, keyword, page, limit]);
 
   useEffect(() => {
-    console.log("3rd useEffect");
+  
     const category = searchParams.get("category");
     if (category) {
       setKeyword(category);

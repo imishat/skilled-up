@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import plumber from "@/public/assets/plumber.jpg";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
@@ -14,7 +14,6 @@ import { getApplicant } from "@/app/lib/applicant";
 
 export default function EditorChoice() {
   const [candidates, setCandidates] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,13 +71,25 @@ export default function EditorChoice() {
                       className="flex items-center h-full w-64 text-white"
                     >
                       <div className="w-64 md:w-auto">
-                        <Image
-                          className="w-full object-cover h-full rounded-lg"
-                          src={plumber}
-                          alt=""
-                          width={350}
-                          height={350}
-                        />
+                      <div className="w-64 md:w-auto">
+  {item?.applicant?.videoResume.map((video, index) => (
+    index === 0 && (
+      <Image
+        className="w-full object-cover h-full rounded-lg"
+        src={video?.
+          thumbnail
+          } // Assuming video is actually an image URL
+        alt=""
+        width={350}
+        height={350}
+        key={index}
+      />
+    )
+  ))}
+</div>
+
+  
+
                         <div className="flex gap-3 items-center mt-4">
                           <div>
                             <Avatar

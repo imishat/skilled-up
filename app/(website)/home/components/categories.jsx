@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import "swiper/css";
-import { Autoplay } from "swiper/modules";
+import { Pagination,Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { getAllCategories } from "@/app/lib/jobCategories";
@@ -41,6 +41,9 @@ const Categories = () => {
               prevEl: ".swiper-Prev-Btn",
               nextEl: ".swiper-Next-Btn",
             }}
+            pagination={{
+              clickable: true,
+            }}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
@@ -59,7 +62,7 @@ const Categories = () => {
                 spaceBetween: 50,
               },
             }}
-            // modules={[Autoplay]}
+           modules={[Pagination,Autoplay]}
             className="mySwiper"
           >
             {categoriesData?.length > 0 ? (
