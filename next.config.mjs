@@ -6,6 +6,7 @@ const nextConfig = {
       "as1.ftcdn.net",
     ],
   },
+  distDir: "build",
 };
 
 export default nextConfig;
