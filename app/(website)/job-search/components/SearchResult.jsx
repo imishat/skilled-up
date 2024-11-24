@@ -11,12 +11,8 @@ export default function SearchResult({
   setPage,
   loading,
 }) {
-  const paragraph = `Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-  Recusandae culpa quae non ab officiis voluptates similique ad
-  obcaecati? Suscipit, libero!`;
-
   const { totalResults, currentItems, totalPages, page } = metaData || {};
-  console.log(jobSeekers,"job")
+  console.log(jobSeekers);
 
   const renderJobSeekers = () => {
     if (jobSeekers.length === 0) {
@@ -35,20 +31,19 @@ export default function SearchResult({
           className="h-full text-white"
         >
           <div>
-          {jobSeeker?.videoResume.map((video, index) => (
-    index === 0 && (
-      <Image
-        className="w-full object-cover h-full rounded-lg"
-        src={video?.
-          thumbnail
-          } // Assuming video is actually an image URL
-        alt=""
-        width={350}
-        height={350}
-        key={index}
-      />
-    )
-  ))}
+            {jobSeeker?.videoResume.map(
+              (video, index) =>
+                index === 0 && (
+                  <Image
+                    className="w-full object-cover h-full rounded-lg"
+                    src={video?.thumbnail || thumbnail}
+                    alt=""
+                    width={350}
+                    height={350}
+                    key={index}
+                  />
+                )
+            )}
           </div>
           <div className="flex gap-3 items-center mt-3">
             <div>

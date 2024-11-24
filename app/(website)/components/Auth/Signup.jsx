@@ -187,7 +187,7 @@ export default function Signup({
             render={({ field }) => (
               <FormElements.Input
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Enter your password(Max 8)"
                 width="full"
                 {...field}
               />

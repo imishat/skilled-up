@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Card({ jobPost }) {
   const { title, description, image, createdAt, slug } = jobPost;
-  console.log(jobPost)
+  console.log(jobPost);
 
   // time convert
   let dateString = createdAt;
@@ -24,7 +24,7 @@ export default function Card({ jobPost }) {
         <Image
           src={image}
           alt="main card Photo"
-          className="rounded-md w-full h-[210px]"
+          className="rounded-md w-full h-[210px] object-cover"
           width={315}
           height={210}
         />
@@ -42,9 +42,9 @@ export default function Card({ jobPost }) {
             </div>
             <div>
               <h5 className="text-white font-semibold leading-2">
-               {jobPost?.createdBy?. 
-    firstName?jobPost?.createdBy?. 
-    firstName:"ADMIN"}
+                {jobPost?.createdBy?.firstName
+                  ? jobPost?.createdBy?.firstName
+                  : "ADMIN"}
               </h5>
               <span className="text-white/70 text-sm">{formattedDate}</span>
             </div>

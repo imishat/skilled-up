@@ -6,12 +6,11 @@
  * @example
  * <WhatsApp phoneNumber={'0123456789'} message={"Here goes the message"} />
  */
-import { Button } from "../button";
 
 export default function WhatsApp({ phoneNumber, message, children }) {
   const URL = "https://wa.me";
 
-  phoneNumber = phoneNumber.replace(/[^\w\s]/gi, "").replace(/ /g, "");
+  phoneNumber = phoneNumber?.replace(/[^\w\s]/gi, "").replace(/ /g, "");
 
   let url = `${URL}/${phoneNumber}`;
 
@@ -20,12 +19,13 @@ export default function WhatsApp({ phoneNumber, message, children }) {
   }
 
   return (
-    <Button
+    <div
       onClick={e => {
         window.open(url);
       }}
+      className="w-full cursor-pointer flex items-center gap-2"
     >
       {children}
-    </Button>
+    </div>
   );
 }
