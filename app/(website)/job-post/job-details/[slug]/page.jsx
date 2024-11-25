@@ -9,6 +9,8 @@ import { AiOutlineDollar } from "react-icons/ai";
 import Overview from "../components/Overview";
 import Information from "../components/Information";
 import { getSingleJObPost } from "@/app/lib/jobPost";
+import WhatsApp from "@/app/components/ui/whatsApp";
+
 // dynamic meta data
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -84,7 +86,12 @@ export default async function JobDetails({ params }) {
                 <CiHeart />
               </div>
               <Button>
-                <FiSend /> Apply Now
+                <WhatsApp
+                  phoneNumber={process.env.WHATSAPP_NUMBER}
+                  message="Hello Apply Here"
+                >
+                  <FiSend /> Apply Now
+                </WhatsApp>
               </Button>
             </div>
             <div className="flex items-center gap-1">

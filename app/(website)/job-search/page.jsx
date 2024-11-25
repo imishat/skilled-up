@@ -82,20 +82,16 @@ export default function JobSearch() {
     setIsLoading(false);
   };
 
- 
   useEffect(() => {
-   
     setIsLoading(true);
     getAllJobCategories();
   }, []);
 
   useEffect(() => {
- 
     handleGetAllJobSeekers(selectedCategory, keyword, page, limit);
   }, [selectedCategory, keyword, page, limit]);
 
   useEffect(() => {
-  
     const category = searchParams.get("category");
     if (category) {
       setKeyword(category);
@@ -106,11 +102,6 @@ export default function JobSearch() {
     <div className="mt-20 text-white container">
       <div className="text-center flex flex-col items-center justify-center h-auto md:h-64">
         <h1 className="text-3xl font-semibold mb-4">Jobs Available Now</h1>
-        <p className="text-white/80">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-          repellendus magni,
-          <br /> atque delectus molestias quis?
-        </p>
         <div>
           <form
             onSubmit={handleKeywordSearchSubmit}

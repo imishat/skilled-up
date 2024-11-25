@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Avatar } from "@/app/components/ui/avatar";
 import { Button } from "@/app/components/ui/button";
-
+import { FiSend } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "@/app/lib/user";
 import WhatsApp from "@/app/components/ui/whatsApp";
@@ -18,7 +18,6 @@ const UserProfileCard = ({ data }) => {
   useEffect(() => {
     getCurrentUserDetails();
   }, []);
-
   // update resume sutus
   return (
     <div className="w-full lg:w-1/4">
@@ -37,9 +36,13 @@ const UserProfileCard = ({ data }) => {
         {user?.role === "admin" ? (
           <Button>{data?.status}</Button>
         ) : user?.role === "hirer" ? (
-          <WhatsApp phoneNumber={process.env.WHATSAPP_NUMBER} message={data} />
+          <Button>
+            <WhatsApp phoneNumber="01955208018" message="Hello Apply Here">
+              <FiSend /> Hire Now
+            </WhatsApp>
+          </Button>
         ) : (
-          ""
+          <Button>Please Login For Hire Someone</Button>
         )}
       </div>
     </div>

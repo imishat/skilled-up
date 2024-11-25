@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-"use client"
+"use client";
 
 import SubHeader from "@/app/(website)/components/Subheader/Subheader";
 import { Button } from "@/app/components/ui/button";
@@ -16,9 +16,9 @@ import { Controller, useForm } from "react-hook-form";
 import { endpoints } from "@/app/common";
 import { METHODS } from "@/app/constants";
 
-export default  function addJob() {
+export default function addJob() {
   const [loading, setLoading] = useState(false);
-  
+
   const [image, setImage] = useState("");
   const [file, setFile] = useState(null);
   // Toast
@@ -72,7 +72,6 @@ export default  function addJob() {
       return;
     }
 
-
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -98,21 +97,19 @@ export default  function addJob() {
         };
 
         const result = await postJob(jobDetails);
-        
+
         if (result.success) {
           showToast("Job added successfully", "success");
-           router.push("/");
+          router.push("/");
           setLoading(false);
           reset();
         }
       } else {
         showToast(res.data.error, "error");
- 
-        
+
         setLoading(false);
       }
     } catch (error) {
-
       setLoading(false);
     }
   };

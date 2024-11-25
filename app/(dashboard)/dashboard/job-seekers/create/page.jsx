@@ -20,7 +20,7 @@ export default function CreateJobSeeker() {
     lastName: "",
     phoneNumber: "",
     intro: "",
-    thumbnail:"",
+    thumbnail: "",
     education: {
       title: "",
       year: 2000,
@@ -32,15 +32,14 @@ export default function CreateJobSeeker() {
       },
     ],
     videoresume: [],
-    
+
     resume: "",
   });
   const [resumeFile, setResumeFile] = useState(null);
-  const [thumbnail,setThumbnail]=useState(null)
+  const [thumbnail, setThumbnail] = useState(null);
   const [videoResumeFiles, setVideoResumeFiles] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const [categoryOptions, setCategoyOptions] = useState([
     { value: "", label: "" },
@@ -53,6 +52,9 @@ export default function CreateJobSeeker() {
       yearsOfExperience: null,
     },
   ]);
+
+  console.log(skills.length);
+  console.log(skills);
 
   // hooks
   const { Toast, showToast } = useToast();
@@ -99,23 +101,21 @@ export default function CreateJobSeeker() {
   const handleAddJobSeeker = async e => {
     e.preventDefault();
     setLoading(true);
- 
 
     try {
       let resumeLink = payload.resume;
       let videoResumeLinks = payload.videoresume.map(video => video.file);
 
-      let resumeThumbnail=payload.thumbnail;
-      
+      let resumeThumbnail = payload.thumbnail;
 
       // upload resume to the server if not already uploaded
       if (thumbnail && !resumeThumbnail) {
         const resumeThumbnailData = new FormData();
-        resumeThumbnailData .append("file", thumbnail);
+        resumeThumbnailData.append("file", thumbnail);
 
         const resumeResponse = await fileUpload(
           endpoints.fileUpload.upload,
-          resumeThumbnailData ,
+          resumeThumbnailData,
           METHODS.POST
         );
 
@@ -149,10 +149,8 @@ export default function CreateJobSeeker() {
       // upload video resumes to the server
       if (videoResumeFiles.length > 0) {
         const videoUploadPromises = videoResumeFiles.map(async file => {
-
-
           const videoResponse = await uploadVideoResume(file);
-          
+
           if (videoResponse) {
             videoResumeLinks.push(videoResponse);
           }
@@ -164,8 +162,11 @@ export default function CreateJobSeeker() {
       const updatedPayload = {
         ...payload,
         resume: resumeLink,
-      thumbnail: resumeThumbnail,
-      videoresume: videoResumeLinks.map(file => ({ file ,thumbnail:resumeThumbnail})),
+        thumbnail: resumeThumbnail,
+        videoresume: videoResumeLinks.map(file => ({
+          file,
+          thumbnail: resumeThumbnail,
+        })),
       };
 
       const skills = updatedPayload.skills.map(skill => ({
@@ -175,11 +176,8 @@ export default function CreateJobSeeker() {
 
       updatedPayload.skills = skills;
 
-    
-
       // add job seeker
       const createJobSeekerRes = await createJobSeekerProfile(updatedPayload);
-
 
       if (createJobSeekerRes?.success) {
         setLoading(false);
@@ -236,9 +234,12 @@ export default function CreateJobSeeker() {
             <form className="space-y-5" onSubmit={handleAddJobSeeker}>
               <div className="flex items-center gap-6">
                 <div className="w-full">
-                  <FormElements.Label>First Name</FormElements.Label>
+                  <FormElements.Label>
+                    First Name <span className="text-red-500">*</span>
+                  </FormElements.Label>
                   <FormElements.Input
                     type="text"
+                    required={true}
                     value={payload.firstName}
                     onChange={e =>
                       setPayload({ ...payload, firstName: e.target.value })
@@ -246,9 +247,12 @@ export default function CreateJobSeeker() {
                   />
                 </div>
                 <div className="w-full">
-                  <FormElements.Label>First Name</FormElements.Label>
+                  <FormElements.Label>
+                    Last Name <span className="text-red-500">*</span>
+                  </FormElements.Label>
                   <FormElements.Input
                     type="text"
+                    required={true}
                     value={payload.lastName}
                     onChange={e =>
                       setPayload({ ...payload, lastName: e.target.value })
@@ -257,9 +261,12 @@ export default function CreateJobSeeker() {
                 </div>
               </div>
               <div className="w-full">
-                <FormElements.Label>Phone number</FormElements.Label>
+                <FormElements.Label>
+                  Phone number <span className="text-red-500">*</span>
+                </FormElements.Label>
                 <FormElements.Input
                   type="text"
+                  required={true}
                   value={payload.phoneNumber}
                   onChange={e =>
                     setPayload({ ...payload, phoneNumber: e.target.value })
@@ -268,9 +275,12 @@ export default function CreateJobSeeker() {
               </div>
 
               <div className="w-full">
-                <FormElements.Label>Intro</FormElements.Label>
+                <FormElements.Label>
+                  Intro <span className="text-red-500">*</span>
+                </FormElements.Label>
                 <FormElements.Input
                   type="text"
+                  required={true}
                   value={payload.intro}
                   onChange={e =>
                     setPayload({ ...payload, intro: e.target.value })
@@ -280,9 +290,12 @@ export default function CreateJobSeeker() {
 
               <div className="flex items-center gap-6">
                 <div className="w-full">
-                  <FormElements.Label>Degree Name</FormElements.Label>
+                  <FormElements.Label>
+                    Degree Name <span className="text-red-500">*</span>
+                  </FormElements.Label>
                   <FormElements.Input
                     type="text"
+                    required={true}
                     value={payload.education.title}
                     onChange={e =>
                       setPayload({
@@ -296,9 +309,12 @@ export default function CreateJobSeeker() {
                   />
                 </div>
                 <div className="w-full">
-                  <FormElements.Label>Passing year</FormElements.Label>
+                  <FormElements.Label>
+                    Passing year <span className="text-red-500">*</span>
+                  </FormElements.Label>
                   <FormElements.Input
                     type="text"
+                    required={true}
                     value={payload.education.year}
                     onChange={e =>
                       setPayload({
@@ -315,7 +331,9 @@ export default function CreateJobSeeker() {
 
               <div className="">
                 <div className="flex items-center justify-between">
-                  <FormElements.Label>Your skills</FormElements.Label>
+                  <FormElements.Label>
+                    Your skills <span className="text-red-500">*</span>
+                  </FormElements.Label>
                   <Button variant="text" onClick={addSkill}>
                     Add Skill
                   </Button>
@@ -343,6 +361,7 @@ export default function CreateJobSeeker() {
                               ...payload,
                               skills: newSkills,
                             });
+                            setSkills(newSkills);
                           }}
                           defaultValue={payload.skills[index]?.category}
                         />
@@ -383,14 +402,19 @@ export default function CreateJobSeeker() {
                   ))}
               </div>
               <div>
-                <FormElements.Label>Thumbnail</FormElements.Label>
+                <FormElements.Label>
+                  Thumbnail <span className="text-red-500">*</span>
+                </FormElements.Label>
                 <Dropzone
                   onUpload={handleThumbnailUpload}
-                  title="Upload your video thumbnail"
+                  title="Upload video thumbnail is required!"
+                  subTitle="To upload file size is (Max 5Mb) and allowed file types are (.png, .jpg, .jpng)"
                 />
               </div>
               <div>
-                <FormElements.Label>Resume</FormElements.Label>
+                <FormElements.Label>
+                  Resume <span className="text-red-500">*</span>
+                </FormElements.Label>
                 <Dropzone
                   onUpload={handleResumeUpload}
                   title="Upload your resume file."
