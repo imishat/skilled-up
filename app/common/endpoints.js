@@ -29,6 +29,9 @@ export const endpoints = {
       return makeApiUrl(`users/${id}`);
     },
     uploadProfile: makeApiUrl("users/update-profile-picture"),
+    deleteuser(id) {
+      return makeApiUrl(`applicant/${id}/delete`);
+    },
   },
   post: {
     getPosts: "https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5",
