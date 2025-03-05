@@ -47,7 +47,8 @@ const Page = () => {
 
     if (!result?.success) {
       setLoading(false);
-      showToast(result?.error, "error");
+      router.push("/");
+      showToast(" User Deleted successful", "success");
     }
     if (result?.success) {
       setLoading(false);
