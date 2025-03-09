@@ -121,7 +121,7 @@ export default function Footer() {
               <li>
                 <Link
                   className="text-white/70 transition hover:text-white"
-                  href="/home"
+                  href="/privacy"
                 >
                   Privacy
                 </Link>
